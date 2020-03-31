@@ -27,7 +27,7 @@ Solution: I simplified this task with the command-line utility **az-switch**! Th
 Usage: az-switch [OPTIONS]
 
   Show all Azure Subscriptions in current profile using the `az` command-
-  line utility. Ask for number to which to another subscription.
+  line utility. Ask user input for switching to another subscription.
 
 Options:
   -n INTEGER          Switch to this subscription number directly.
@@ -45,6 +45,6 @@ az-switch
 [5]: 26axxfb-xxxx-4ad1-8128-xxxf0eexxx: CompanyZ - staging
 [6]: 463xx72-xxxx-4cf1-8125-xxxa803xxx: CompanyZ - prod
 [7]: 29dxxe9-xxxx-4461-9123-xxxd5d5xxx: CompanyZ - dev
-Switch to [4]: 5
-Switched to: 26axxfb-xxxx-4ad1-8128-xxxf0eexxx: CompanyZ - staging
+Switch [4]: 5
+Active: 26axxfb-xxxx-4ad1-8128-xxxf0eexxx: CompanyZ - staging
 ```

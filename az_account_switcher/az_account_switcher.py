@@ -11,7 +11,7 @@ from azure.common.credentials import get_azure_cli_credentials
 def main(n: int = None) -> None:
     """
     Show all Azure Subscriptions in current profile using the `az` command-line utility.
-    Ask for number to which to another subscription.
+    Ask user input for switching to another subscription.
     """
     try:
         subscriptions = json.loads(subprocess.getoutput('az account list --output json'))
@@ -19,7 +19,7 @@ def main(n: int = None) -> None:
         current_nr = _print_options(subscriptions)
 
         if not n:
-            n = click.prompt('Switch to', type=int, default=current_nr)
+            n = click.prompt('Switch', type=int, default=current_nr)
 
         if n not in range(1, len(subscriptions) + 1):
             raise ValueError("Value not in range! Not changing subscription.")
@@ -28,7 +28,7 @@ def main(n: int = None) -> None:
 
         _, subscription_id = get_azure_cli_credentials()
         active = next(filter(lambda x: x['id'] == subscription_id, subscriptions))
-        click.echo("Switched to: " + click.style(active['id'] + ": " + active['name'], fg='green', bold=True))
+        click.echo("Active: " + click.style(active['id'] + ": " + active['name'], fg='green', bold=True))
 
     except subprocess.CalledProcessError:
         # Issue is already printed to stderr.
