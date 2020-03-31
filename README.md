@@ -1,6 +1,6 @@
 ## Switch Azure subscriptions
 
-Switching subscriptions using the [Azure CLI](https://docs.microsoft.com/cli/azure/manage-azure-subscriptions-azure-cli) involves too much typing
+Problem: Switching subscriptions using the [Azure CLI](https://docs.microsoft.com/cli/azure/manage-azure-subscriptions-azure-cli) involves too much typing.
 
 ```bash
 # Type a lot...
@@ -13,12 +13,28 @@ az account list --output table
 az account set --subscription-id <paste subscription-id>
 ```
 
-So, I have simplified this task with the command-line utility **az-switch** with colors! The active subscription is bold and green and selected as default argument. Just select the subscription you want to activate.
+Solution: I simplified this task with the command-line utility **az-switch**! The active subscription is bold and green and selected as default argument. Just select the subscription you want to activate.
 
-> Optionally you can pass: --profile/-p myprofile  
+### Install
+
+`pip install az-account-switcher`
+
+### Usage
 
 ```bash
-#
+Usage: az-switch [OPTIONS]
+
+  Show all Azure Subscriptions in current profile using the `az` command-
+  line utility. Ask for number to which to another subscription.
+
+Options:
+  -n INTEGER          Switch to this subscription number directly.
+  --help              Show this message and exit.
+```
+
+### Example
+
+```bash
 az-switch
 [1]: 5ddxxc0-xxxx-44c1-b12a-xxxb5dexxx: CompanyY PayAsYouGo
 [2]: 882xx6c-xxxx-4121-912a-xxx25c8xxx: PersonalSubscription
@@ -28,9 +44,5 @@ az-switch
 [6]: 463xx72-xxxx-4cf1-8125-xxxa803xxx: CompanyZ - prod
 [7]: 29dxxe9-xxxx-4461-9123-xxxd5d5xxx: CompanyZ - dev
 Switch to [4]: 5
-Active: 26axxfb-xxxx-4ad1-8128-xxxf0eexxx: CompanyZ - staging
-``` 
-
-### Install
-
-`pip install git+git://github.com/abij/az-account-switcher`
+Switched to: 26axxfb-xxxx-4ad1-8128-xxxf0eexxx: CompanyZ - staging
+```
