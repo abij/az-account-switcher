@@ -1,5 +1,7 @@
 ## Switch Azure subscriptions
 
+![Upload Python Package](https://github.com/abij/az-account-switcher/workflows/Upload%20Python%20Package/badge.svg)
+
 Problem: Switching subscriptions using the [Azure CLI](https://docs.microsoft.com/cli/azure/manage-azure-subscriptions-azure-cli) involves too much typing.
 
 ```bash
