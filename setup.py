@@ -17,7 +17,7 @@ setup(name='az-account-switcher',
       url='https://github.com/abij/az-account-switcher',
       classifiers=['Programming Language :: Python :: 3 :: Only'],
       packages=['az_account_switcher'],
-      python_requires='>3.5',
+      python_requires='>3.6',
       install_requires=[
           'azure-common',
           'click'
