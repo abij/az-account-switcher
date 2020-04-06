@@ -20,6 +20,7 @@ setup(name='az-account-switcher',
       python_requires='>3.6',
       install_requires=[
           'azure-common',
+          'azure-cli-core',
           'click'
       ],
       entry_points='''
