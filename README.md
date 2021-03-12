@@ -37,3 +37,9 @@ Options:
 ### Example
 
 ![example_gif](az-switch-example.gif)
+
+## CHANGELOG
+
+### v0.0.6 (25-03-2021):
+
+Add support for disabled subscriptions.

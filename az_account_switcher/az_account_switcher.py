@@ -14,7 +14,7 @@ def main(n: int = None) -> None:
     Ask user input for switching to another subscription.
     """
     try:
-        subscriptions = json.loads(subprocess.getoutput('az account list --output json'))
+        subscriptions = json.loads(subprocess.getoutput('az account list --all --output json'))
 
         current_nr = _print_options(subscriptions)
 
@@ -29,6 +29,9 @@ def main(n: int = None) -> None:
         _, subscription_id = get_azure_cli_credentials()
         active = next(filter(lambda x: x['id'] == subscription_id, subscriptions))
         click.echo("Active: " + click.style(active['id'] + ": " + active['name'], fg='green', bold=True))
+
+        if active['state'].lower() == 'disabled':
+            click.echo(click.style("Subscription state is Disabled, requires: az login!", fg='yellow'))
 
     except subprocess.CalledProcessError:
         # Issue is already printed to stderr.
