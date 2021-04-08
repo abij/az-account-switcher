@@ -8,7 +8,7 @@ with open(path.join(this_directory, 'README.md')) as f:
     long_description = f.read()
 
 setup(name='az-account-switcher',
-      version='0.0.6',
+      version='1.0.0',
       description='Utility to switch Azure subscriptions',
       long_description=long_description,
       long_description_content_type='text/markdown',

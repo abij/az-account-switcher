@@ -43,6 +43,13 @@ Options:
 
 ## CHANGELOG
 
+### v1.0.0 (08-04-2021):
+
+- Include Python 3.6, not only greater than.
+- Add DeepSource code checker and resolve found issue (related to shell=true)
+- Add aliases for command-line next to az-switch: + az-account-switch + az-account-switcher _(the package name)_
+- Dump to v1.0.0, since it's working fine for a while and looks better!
+
 ### v0.0.6 (25-03-2021):
 
 Add support for disabled subscriptions.
