@@ -15,16 +15,20 @@ setup(name='az-account-switcher',
       author='Alexander Bij',
       author_email='Alexander.Bij@gmail.com',
       url='https://github.com/abij/az-account-switcher',
-      classifiers=['Programming Language :: Python :: 3 :: Only'],
+      classifiers=[
+        'Programming Language :: Python :: 3 :: Only',
+        'License :: OSI Approved :: MIT License',
+      ],
       packages=['az_account_switcher'],
-      python_requires='>3.6',
+      python_requires='>=3.6',
       install_requires=[
-          'azure-common',
           'azure-cli-core',
           'click'
       ],
       entry_points='''
           [console_scripts]
           az-switch=az_account_switcher:main
+          az-account-switch=az_account_switcher:main
+          az-account-switcher=az_account_switcher:main
       ''',
       )
