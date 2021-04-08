@@ -45,7 +45,8 @@ def main(n: int = None) -> None:
 
 def _select_subscription(n, subscriptions):
     subscription_id = subscriptions[n - 1]['id']
-    subprocess.check_output(f'az account set -s {subscription_id}', shell=True)
+    # replaced shell=true variant, which is more vulnerable: https://stackoverflow.com/a/29023432
+    subprocess.check_output(f'az account set -s {subscription_id}'.split(" "))
 
 
 def _print_options(subscriptions: List[dict]) -> int:
