@@ -8,13 +8,16 @@ from azure.common.credentials import get_azure_cli_credentials
 
 @click.command()
 @click.option("-n", required=False, type=int, help="Switch to this subscription number directly.")
-def main(n: int = None) -> None:
+@click.option("-v", is_flag=True, help="Verbose: echo the 'az account set' command.")
+def main(n: int = None, v: bool = False) -> None:
     """
     Show all Azure Subscriptions in current profile using the `az` command-line utility.
     Ask user input for switching to another subscription.
     """
     try:
-        subscriptions = json.loads(subprocess.getoutput('az account list --all --output json'))
+        list_cmd = 'az account list --all --output json ' \
+            '--query "sort_by([].{name:name, isDefault:isDefault, id:id, state:state}, &name)"'
+        subscriptions = json.loads(subprocess.getoutput(list_cmd))
 
         current_nr = _print_options(subscriptions)
 
@@ -24,7 +27,10 @@ def main(n: int = None) -> None:
         if n not in range(1, len(subscriptions) + 1):
             raise ValueError("Value not in range! Not changing subscription.")
 
-        _select_subscription(n, subscriptions)
+        if n == current_nr:
+            click.echo("Selection is same as current. Not changing subscription.")
+        else:
+            _select_subscription(n, v, subscriptions)
 
         _, subscription_id = get_azure_cli_credentials()
         active = next(filter(lambda x: x['id'] == subscription_id, subscriptions))
@@ -43,10 +49,13 @@ def main(n: int = None) -> None:
         print(e)
 
 
-def _select_subscription(n, subscriptions):
+def _select_subscription(n, v, subscriptions):
     subscription_id = subscriptions[n - 1]['id']
     # replaced shell=true variant, which is more vulnerable: https://stackoverflow.com/a/29023432
-    subprocess.check_output(f'az account set -s {subscription_id}'.split(" "))
+    switch_cmd = f'az account set -s {subscription_id}'
+    if v:
+        click.echo(f'Issuing AZ CLI command: "{switch_cmd}"')
+    subprocess.check_output(switch_cmd.split(" "))
 
 
 def _print_options(subscriptions: List[dict]) -> int:
@@ -63,3 +72,4 @@ def _print_options(subscriptions: List[dict]) -> int:
 
         click.echo(number + ": " + colored_info)
     return selected
+
