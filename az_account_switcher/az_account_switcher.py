@@ -5,18 +5,22 @@ from typing import List
 import click
 from azure.common.credentials import get_azure_cli_credentials
 
+CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 
-@click.command()
+@click.command(context_settings=CONTEXT_SETTINGS)
 @click.option("-n", required=False, type=int, help="Switch to this subscription number directly.")
-@click.option("-v", is_flag=True, help="Verbose: echo the 'az account set' command.")
+@click.option("-v", is_flag=True, help="Verbose: echo the azure-cli commands.")
 def main(n: int = None, v: bool = False) -> None:
     """
     Show all Azure Subscriptions in current profile using the `az` command-line utility.
     Ask user input for switching to another subscription.
     """
     try:
+        # Using --query to map subset of fields and sort by name (ascending)
         list_cmd = 'az account list --all --output json ' \
             '--query "sort_by([].{name:name, isDefault:isDefault, id:id, state:state}, &name)"'
+        if v:
+            click.echo(f'Issuing AZ CLI command: {list_cmd}')
         subscriptions = json.loads(subprocess.getoutput(list_cmd))
 
         current_nr = _print_options(subscriptions)
