@@ -44,6 +44,14 @@ Options:
 
 ## CHANGELOG
 
+### v1.1.0 (04-05-2021):
+
+- Don't switch when same subscription is selected.
+- Add `-v` verbose flag to print Azure-CLI sub-commands.
+- Add `-h` as alias for `--help`
+
+Thanks to @tqorange for contributing.
+
 ### v1.0.0 (08-04-2021):
 
 - Include Python 3.6, not only greater than.
