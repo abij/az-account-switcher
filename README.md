@@ -2,7 +2,9 @@
 
 | Type| Badge|
 |---|---|
-| Release workflow | ![!Workflow upload](https://github.com/abij/az-account-switcher/workflows/Upload%20Python%20Package/badge.svg) |
+| Workflow | ![!Workflow upload](https://github.com/abij/az-account-switcher/workflows/Upload%20Python%20Package/badge.svg) |
+|Latest|![!PyPI](https://img.shields.io/pypi/v/az-account-switcher.svg)|
+|Activity|![!PyPI](https://img.shields.io/pypi/dm/az-account-switcher)|
 | DeepSource | [![DeepSource](https://deepsource.io/gh/abij/az-account-switcher.svg/?label=active+issues&show_trend=true)](https://deepsource.io/gh/abij/az-account-switcher/?ref=repository-badge) |
 
 Problem: Switching subscriptions using the [Azure CLI](https://docs.microsoft.com/cli/azure/manage-azure-subscriptions-azure-cli) involves too much typing.
