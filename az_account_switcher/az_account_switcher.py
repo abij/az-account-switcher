@@ -1,11 +1,10 @@
-import json
-import subprocess
 from typing import List
-
 import click
+from az.cli import az
 from azure.common.credentials import get_azure_cli_credentials
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
+
 
 @click.command(context_settings=CONTEXT_SETTINGS)
 @click.option("-n", required=False, type=int, help="Switch to this subscription number directly.")
@@ -17,11 +16,12 @@ def main(n: int = None, v: bool = False) -> None:
     """
     try:
         # Using --query to map subset of fields and sort by name (ascending)
-        list_cmd = 'az account list --all --output json ' \
-            '--query "sort_by([].{name:name, isDefault:isDefault, id:id, state:state}, &name)"'
+        list_cmd = 'account list --all --output json ' \
+                   '--query "sort_by([].{name:name, isDefault:isDefault, id:id, state:state}, &name)"'
         if v:
             click.echo(f'Issuing AZ CLI command: {list_cmd}')
-        subscriptions = json.loads(subprocess.getoutput(list_cmd))
+
+        exit_code, subscriptions, logs = az(list_cmd)
 
         current_nr = _print_options(subscriptions)
 
@@ -43,9 +43,6 @@ def main(n: int = None, v: bool = False) -> None:
         if active['state'].lower() == 'disabled':
             click.echo(click.style("Subscription state is Disabled, requires: az login!", fg='yellow'))
 
-    except subprocess.CalledProcessError:
-        # Issue is already printed to stderr.
-        pass
     except click.exceptions.Abort:
         # No need to raise exception when CTRL-C out of the cli
         pass
@@ -56,10 +53,11 @@ def main(n: int = None, v: bool = False) -> None:
 def _select_subscription(n, v, subscriptions):
     subscription_id = subscriptions[n - 1]['id']
     # replaced shell=true variant, which is more vulnerable: https://stackoverflow.com/a/29023432
-    switch_cmd = f'az account set -s {subscription_id}'
+    switch_cmd = f'account set -s {subscription_id}'
     if v:
         click.echo(f'Issuing AZ CLI command: "{switch_cmd}"')
-    subprocess.check_output(switch_cmd.split(" "))
+
+    code, result, logs = az(switch_cmd)
 
 
 def _print_options(subscriptions: List[dict]) -> int:
@@ -77,3 +75,6 @@ def _print_options(subscriptions: List[dict]) -> int:
         click.echo(number + ": " + colored_info)
     return selected
 
+
+if __name__ == '__main__':
+    main()
