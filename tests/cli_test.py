@@ -1,3 +1,6 @@
+"""
+Note: pytest creates new tmpdir with copy of .azure/test-azureProfile.json per test.
+"""
 from az_account_switcher import main
 
 
