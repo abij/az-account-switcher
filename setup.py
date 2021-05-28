@@ -26,6 +26,9 @@ setup(name='az-account-switcher',
           'az.cli',         # Python wrapper around Azure CLI
           'click'
       ],
+      extras_require={
+          'dev': ['pytest', 'pytest_click']
+      },
       entry_points='''
           [console_scripts]
           az-switch=az_account_switcher:main
