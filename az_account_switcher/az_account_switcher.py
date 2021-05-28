@@ -22,6 +22,7 @@ def main(n: int = None, v: bool = False) -> None:
             click.echo(f'Issuing AZ CLI command: {list_cmd}')
 
         exit_code, subscriptions, logs = az(list_cmd)
+        assert exit_code == 0, logs
 
         current_nr = _print_options(subscriptions)
 
@@ -57,7 +58,8 @@ def _select_subscription(n, v, subscriptions):
     if v:
         click.echo(f'Issuing AZ CLI command: "{switch_cmd}"')
 
-    code, result, logs = az(switch_cmd)
+    exit_code, result, logs = az(switch_cmd)
+    assert exit_code == 0, logs
 
 
 def _print_options(subscriptions: List[dict]) -> int:
