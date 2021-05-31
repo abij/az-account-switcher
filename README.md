@@ -46,6 +46,13 @@ Options:
 
 ## CHANGELOG
 
+### v1.2.0 (31-05-2021):
+
+- Support Windows by changing interaction with Azure-CLI using Python package 'az.cli' instead of POpen
+- Drop Python 3.6 support, due to dependent package 'az.cli'
+- Unit tests running on latest versions of Unix, Windows and MacOs
+- Depend on `azure-cli` instead of `azure-cli-core` to auto include `packaging`to fix [issue-3](https://github.com/abij/az-account-switcher/issues/3)
+
 ### v1.1.0 (04-05-2021):
 
 - Don't switch when same subscription is selected.
