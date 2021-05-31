@@ -20,11 +20,15 @@ setup(name='az-account-switcher',
         'License :: OSI Approved :: MIT License',
       ],
       packages=['az_account_switcher'],
-      python_requires='>=3.6',
+      python_requires='>=3.7',
       install_requires=[
-          'azure-cli-core',
+          'azure-cli',
+          'az.cli>=0.5',         # Python wrapper around Azure CLI
           'click'
       ],
+      extras_require={
+          'dev': ['pytest', 'pytest_click']
+      },
       entry_points='''
           [console_scripts]
           az-switch=az_account_switcher:main
