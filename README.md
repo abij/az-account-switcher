@@ -2,7 +2,7 @@
 
 | Type| Badge|
 |---|---|
-| Workflow | ![!Workflow upload](https://github.com/abij/az-account-switcher/workflows/Upload%20Python%20Package/badge.svg) |
+| Workflow | [![Test](https://github.com/abij/az-account-switcher/actions/workflows/test.yml/badge.svg)](https://github.com/abij/az-account-switcher/actions/workflows/test.yml) ![!Workflow upload](https://github.com/abij/az-account-switcher/workflows/Upload%20Python%20Package/badge.svg)|
 |Latest|![!PyPI](https://img.shields.io/pypi/v/az-account-switcher.svg)|
 |Activity|![!PyPI](https://img.shields.io/pypi/dm/az-account-switcher)|
 | DeepSource | [![DeepSource](https://deepsource.io/gh/abij/az-account-switcher.svg/?label=active+issues&show_trend=true)](https://deepsource.io/gh/abij/az-account-switcher/?ref=repository-badge) |
