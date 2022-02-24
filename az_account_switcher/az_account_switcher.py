@@ -1,7 +1,8 @@
 from typing import List
 import click
 from az.cli import az
-from azure.common.credentials import get_azure_cli_credentials
+from azure.identity import AzureCliCredential
+from azure.mgmt.resource import SubscriptionClient
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 
@@ -38,9 +39,10 @@ def main(n: int = None, v: bool = False) -> None:
         else:
             _select_subscription(n, v, subscriptions)
 
-        _, subscription_id = get_azure_cli_credentials()
-        active = next(filter(lambda x: x['id'] == subscription_id, subscriptions))
-        click.echo("Active: " + click.style(active['id'] + ": " + active['name'], fg='green', bold=True))
+        for item in _get_subscriptions_list():
+            subscription_id = item.subscription_id
+            active = next(filter(lambda x: x['id'] == subscription_id, subscriptions))
+            click.echo("Active: " + click.style(active['id'] + ": " + active['name'], fg='green', bold=True))
 
         if active['state'].lower() == 'disabled':
             click.echo(click.style("Subscription state is Disabled, requires: az login!", fg='yellow'))
@@ -78,6 +80,13 @@ def _print_options(subscriptions: List[dict]) -> int:
 
         click.echo(number + ": " + colored_info)
     return selected
+
+def _get_subscriptions_list():
+    credential = AzureCliCredential()
+    subscription_client = SubscriptionClient(credential)
+    page_result = subscription_client.subscriptions.list()
+    result = [item for item in page_result]
+    return result
 
 
 if __name__ == '__main__':
