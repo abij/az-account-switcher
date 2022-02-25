@@ -46,6 +46,12 @@ Options:
 
 ## CHANGELOG
 
+### v1.3.0 (25-02-2022):
+
+- **Speed-up switching** by removing the online interaction pulling the Subscriptions through the Azure-CLI. [PR-7](https://github.com/abij/az-account-switcher/pull/7)
+- Removed deprecated `get_azure_cli_credentials` in [PR-6](https://github.com/abij/az-account-switcher/pull/6)
+- Add `--verbose` flag as an alias to the `-v` flag.
+
 ### v1.2.0 (31-05-2021):
 
 - Support Windows by changing interaction with Azure-CLI using Python package 'az.cli' instead of POpen
