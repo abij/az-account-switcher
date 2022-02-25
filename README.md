@@ -35,9 +35,9 @@ Usage: az-switch [OPTIONS]
   line utility. Ask user input for switching to another subscription.
 
 Options:
-  -n INTEGER  Switch to this subscription number directly.
-  -v          Verbose: echo the azure-cli commands.
-  -h, --help  Show this message and exit.
+  -n INTEGER     Switch to this subscription number directly.
+  -v, --verbose  Verbose: echo the azure-cli commands.
+  -h, --help     Show this message and exit.
 ```
 
 ### Example
