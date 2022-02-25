@@ -42,7 +42,7 @@ Options:
 
 ### Example
 
-![example_gif](az-switch-example.gif)
+![example_gif](https://raw.githubusercontent.com/abij/az-account-switcher/master/az-switch-example.gif)
 
 ## CHANGELOG
 
