@@ -61,7 +61,7 @@ jobs:
       - run: mkdir -p smoketest
       - name: Run az-switch help command
         run: |
-          pip install dist/az-switch-*.whl
+          pip install ../dist/az_account_switcher-*.whl
           # Does it actually work?
           az-switch --help
         working-directory: ./smoketest
