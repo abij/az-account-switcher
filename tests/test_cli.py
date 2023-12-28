@@ -1,7 +1,7 @@
 """
 Note: pytest creates new tmpdir with copy of .azure/test-azureProfile.json per test.
 """
-from az_account_switcher import main
+from az_account_switcher.az_account_switcher import main
 
 
 def test_cli_print_help(cli_runner):
