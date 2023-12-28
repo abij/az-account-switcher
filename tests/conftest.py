@@ -14,15 +14,15 @@ def azure_profile_dir(tmpdir):
     The tmpdir is automatically cleaned up.
     """
     tmp_profile_dir = tmpdir.mkdir(".azure")
-    os.environ['AZURE_CONFIG_DIR'] = str(tmp_profile_dir)
+    os.environ["AZURE_CONFIG_DIR"] = str(tmp_profile_dir)
 
     cwd = Path.cwd()
 
     # Huu? are we not running inside the project folder?
-    if cwd.name == 'az-account-switcher':
-        cwd = cwd / 'tests'
+    if cwd.name == "az-account-switcher":
+        cwd = cwd / "tests"
 
-    source = cwd / '.azure/test-azureProfile.json'
-    destination = tmp_profile_dir / 'azureProfile.json'
+    source = cwd / ".azure/test-azureProfile.json"
+    destination = tmp_profile_dir / "azureProfile.json"
 
     shutil.copy(source, destination)

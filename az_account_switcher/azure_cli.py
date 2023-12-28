@@ -6,6 +6,7 @@ import platform
 import re
 import subprocess  # nosec B404
 from collections import namedtuple
+from typing import List
 
 AzCliResult = namedtuple("AzCliResult", ["exit_code", "result_dict", "logs"])
 
@@ -42,7 +43,7 @@ def az(command: str) -> AzCliResult:
         return AzCliResult(1, None, data)
 
 
-def _prepare_cmd_list(command: str) -> list[str]:
+def _prepare_cmd_list(command: str) -> List[str]:
     """Flatten single-quoted literals into single line and split into list."""
     if not command.startswith("az "):
         command = "az " + command
