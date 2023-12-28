@@ -61,7 +61,7 @@ jobs:
       - run: mkdir -p smoketest
       - name: Run az-switch help command
         run: |
-          deactivate  # exit the Poetry env.
+          source deactivate  # exit the Poetry env.
           pip install dist/az-switch-*.whl
           # Does it actually work?
           az-switch --help
