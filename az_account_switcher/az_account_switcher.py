@@ -1,6 +1,6 @@
 from typing import List
 import click
-from az.cli import az
+from .azure_cli import az
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 
@@ -15,8 +15,8 @@ def main(n: int = None, verbose: bool = False) -> None:
     """
     try:
         # Using --query to map subset of fields and sort by name (ascending)
-        list_cmd = 'account list --all --output json ' \
-                   '--query "sort_by([].{name:name, isDefault:isDefault, id:id, state:state}, &name)"'
+        list_cmd = "account list --all --output json " \
+                   "--query 'sort_by([].{name:name, isDefault:isDefault, id:id, state:state}, &name)'"
         if verbose:
             click.echo(f'Issuing AZ CLI command: {list_cmd}')
 
@@ -41,12 +41,16 @@ def main(n: int = None, verbose: bool = False) -> None:
         else:
             _select_subscription(n, subscriptions, verbose)
 
-        active = subscriptions[n-1]
+        active = subscriptions[n - 1]
         click.echo("Active: " + click.style(active['id'] + ": " + active['name'], fg='green', bold=True))
 
         if active['state'].lower() == 'disabled':
             click.echo(click.style("Subscription state is Disabled, requires: az login!", fg='yellow'))
-
+    except FileNotFoundError as e:
+        if 'az' not in str(e):  # only raise when 'az' is not found.
+            raise e
+        click.echo(click.style('Error: missing "az" on PATH.', bold=True, fg='red'))
+        click.echo("  Please install Azure CLI: https://docs.microsoft.com/cli/azure/install-azure-cli")
     except click.exceptions.Abort:
         # No need to raise exception when CTRL-C out of the cli
         pass
