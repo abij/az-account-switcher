@@ -10,11 +10,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      #----------------------------------------------
-      #       check-out repo and set-up python
-      #----------------------------------------------
     - uses: actions/checkout@v4
-    - uses: JRubics/poetry-publish@v1.17
+
+    # See: https://github.com/marketplace/actions/publish-python-poetry-package
+    - name: Build and publish to pypi
+      uses: JRubics/poetry-publish@v1
       with:
         pypi_token: ${{ secrets.PYPI_TOKEN }}
         ignore_dev_requirements: true

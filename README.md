@@ -14,8 +14,8 @@ Problem: Switching subscriptions using the [Azure CLI](https://docs.microsoft.co
 az account list --output table
 
 # Use mouse to select the subscription-id in the console
-# Use ctrl-c to copy the text, this might be optional 
- 
+# Use ctrl-c to copy the text, this might be optional
+
 # Type a lot...
 az account set --subscription-id <paste subscription-id>
 ```
@@ -45,6 +45,12 @@ Options:
 ![example_gif](https://raw.githubusercontent.com/abij/az-account-switcher/master/az-switch-example.gif)
 
 ## CHANGELOG
+
+### v1.4.0 (28-12-2023):
+
+- Removed `az.cli` with `azure-cli` dependencies in favor subprocess call to have a small installation. Assuming `az` in on your PATH.
+- Drop Python 3.7 support, due to minimal version supported by (dev) dependency `commitizen`.
+- Switch to [poetry](https://python-poetry.org/) for dependency management.
 
 ### v1.3.0 (25-02-2022):
 
