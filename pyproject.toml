@@ -25,8 +25,8 @@ commitizen = "^3.13.0"
 setuptools = "^69.0.3"  # Required for PyCharm.
 
 [tool.poetry.scripts]
-az-switch = "az_account_switcher:main"
-az-account-switcher = "az_account_switcher:main"
+az-switch = "az_account_switcher.az_account_switcher:main"
+az-account-switcher = "az_account_switcher.az_account_switcher:main"
 
 [tools.ruff]
 line-length = 120
