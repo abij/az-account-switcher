@@ -61,7 +61,6 @@ jobs:
       - name: Run smoke test
         run: |
           pip install dist/az-switch-*.whl
-
+          # Does it actually work?
           az-switch --help
-        with:
-          working-directory: ./smoketest
+        working-directory: ./smoketest
