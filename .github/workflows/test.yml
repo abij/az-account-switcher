@@ -11,7 +11,7 @@ defaults:
     shell: bash
 
 jobs:
-  build:
+  test:
     strategy:
       matrix:
         python-version: ["3.8", "3.9", "3.10", "3.11"]
@@ -30,14 +30,16 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       #----------------------------------------------
-      #       install & configure poetry
+      #       setup Poetry & install dependencies
       #----------------------------------------------
       - name: Install Poetry
         uses: snok/install-poetry@v1
+        with:
+          virtualenvs-in-project: true
       - name: Install dependencies
         run: poetry install --no-interaction
       #----------------------------------------------
-      #     run pytest
+      #       run pytest
       #----------------------------------------------
       - name: Run pytest
         run: |
