@@ -21,7 +21,7 @@ def main(n: int = None, verbose: bool = False) -> None:
         # Using --query to map subset of fields and sort by name (ascending)
         list_cmd = (
             "account list --all --output json "
-            "--query 'sort_by([].{name:name, isDefault:isDefault, id:id, state:state}, &name)'"
+            "--query 'sort_by([].{name:name, isDefault:isDefault, id:id, state:state, tenant:tenantDisplayName}, &name)'"
         )
         if verbose:
             click.echo(f"Issuing AZ CLI command: {list_cmd}")
@@ -96,9 +96,9 @@ def _print_options(subscriptions: List[dict]) -> int:
 
         if s["isDefault"]:
             selected = idx + 1
-            colored_info = click.style(f"{s['id']}: {s['name']}", fg="green", bold=True)
+            colored_info = click.style(f"{s['id']}: {s['name']} : [{s['tenant']}]", fg="green", bold=True)
         else:
-            colored_info = click.style(f"{s['id']}: {s['name']}")
+            colored_info = click.style(f"{s['id']}: {s['name']} : [{s['tenant']}]")
 
         click.echo(number + ": " + colored_info)
     return selected
