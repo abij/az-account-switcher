@@ -7,7 +7,7 @@ CONTEXT_SETTINGS = dict(help_option_names=["-h", "--help"])
 
 @click.command(context_settings=CONTEXT_SETTINGS)
 @click.option(
-    "-n", required=False, type=int, help="Switch to this subscriptions number directly."
+    "-n", required=False, type=int, help="Switch to this subscription number directly."
 )
 @click.option(
     "--verbose", "-v", is_flag=True, help="Verbose: echo the azure-cli commands."
