@@ -14,7 +14,7 @@ jobs:
   test:
     strategy:
       matrix:
-        python-version: ["3.8", "3.9", "3.10", "3.11"]
+        python-version: ["3.10", "3.11", "3.12", "3.13"]
         os: [ubuntu-latest, windows-latest, macOS-latest]
     defaults:
       run:
@@ -42,7 +42,7 @@ jobs:
       #       run pytest
       #----------------------------------------------
       - name: Run pytest
-        run: poetry run pytest
+        run: poetry run pytest -vv
 
   # Build & install: run az-switch help command
   smoke-test:
