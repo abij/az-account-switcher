@@ -42,7 +42,7 @@ jobs:
       #       run pytest
       #----------------------------------------------
       - name: Run pytest
-        run: poetry run pytest
+        run: poetry run pytest -vv
 
   # Build & install: run az-switch help command
   smoke-test:
