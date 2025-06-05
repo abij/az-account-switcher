@@ -7,7 +7,7 @@ CONTEXT_SETTINGS = dict(help_option_names=["-h", "--help"])
 
 @click.command(context_settings=CONTEXT_SETTINGS)
 @click.option(
-    "-n", required=False, type=int, help="Switch to this subscription number directly."
+    "-n", required=False, type=int, help="Switch to this subscriptions number directly."
 )
 @click.option(
     "--verbose", "-v", is_flag=True, help="Verbose: echo the azure-cli commands."
@@ -18,10 +18,23 @@ def main(n: int = None, verbose: bool = False) -> None:
     Ask user input for switching to another subscription.
     """
     try:
+        # Since Azure-CLI 2.61.0 there is build-in support for subscription selection.
+        exit_code, versions, logs = az("version --output json")
+        if exit_code != 0:
+            raise ValueError(logs)
+
+        if versions["azure-cli"] >= "2.61.0":
+            click.echo(
+                click.style(
+                    "Azure CLI version is 2.61.0 or higher, it has build-in support to switch subscription. Just use 'az login' and uninstall this package.",
+                    fg="yellow",
+                )
+            )
+
         # Using --query to map subset of fields and sort by name (ascending)
         list_cmd = (
             "account list --all --output json "
-            "--query 'sort_by([].{name:name, isDefault:isDefault, id:id, state:state}, &name)'"
+            "--query 'sort_by([].{name:name, isDefault:isDefault, id:id, state:state, tenant:tenantDisplayName}, &name)'"
         )
         if verbose:
             click.echo(f"Issuing AZ CLI command: {list_cmd}")
@@ -52,7 +65,11 @@ def main(n: int = None, verbose: bool = False) -> None:
         active = subscriptions[n - 1]
         click.echo(
             "Active: "
-            + click.style(active["id"] + ": " + active["name"], fg="green", bold=True)
+            + click.style(
+                f'{active["id"]}: {active["name"]}: [{active["tenant"]}]',
+                fg="green",
+                bold=True,
+            )
         )
 
         if active["state"].lower() == "disabled":
@@ -96,9 +113,11 @@ def _print_options(subscriptions: List[dict]) -> int:
 
         if s["isDefault"]:
             selected = idx + 1
-            colored_info = click.style(f"{s['id']}: {s['name']}", fg="green", bold=True)
+            colored_info = click.style(
+                f"{s['id']}: {s['name']}: [{s['tenant']}]", fg="green", bold=True
+            )
         else:
-            colored_info = click.style(f"{s['id']}: {s['name']}")
+            colored_info = click.style(f"{s['id']}: {s['name']}: [{s['tenant']}]")
 
         click.echo(number + ": " + colored_info)
     return selected

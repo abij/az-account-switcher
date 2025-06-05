@@ -1,5 +1,10 @@
 ## Switch Azure subscriptions
 
+> [!WARNING]
+> The new version of the Azure-CLI, since 2.61.0, has build-in support for switching subscriptions, so this package is no longer needed. You can use the command `az login` to switch subscriptions directly. See: https://learn.microsoft.com/en-us/cli/azure/authenticate-azure-cli-interactively?view=azure-cli-latest#subscription-selector.
+
+[![License](https://img.shields.io/pypi/l/az-account-switcher.svg)](
+
 | Type| Badge|
 |---|---|
 | Workflow | [![Test](https://github.com/abij/az-account-switcher/actions/workflows/test.yml/badge.svg)](https://github.com/abij/az-account-switcher/actions/workflows/test.yml) ![!Workflow upload](https://github.com/abij/az-account-switcher/workflows/Upload%20Python%20Package/badge.svg)|
@@ -45,6 +50,12 @@ Options:
 ![example_gif](https://raw.githubusercontent.com/abij/az-account-switcher/master/az-switch-example.gif)
 
 ## CHANGELOG
+
+### v1.5.0 (05-05-2025):
+
+- Display tenant name in the subscription list.
+- Show warning when AzureCLI 2.61.0 or newer is detected, no need for this package anymore.
+- Drop support for Python 3.8 and 3.9 since Click 8.2.0 requires Python 3.10+.
 
 ### v1.4.0 (28-12-2023):
 
