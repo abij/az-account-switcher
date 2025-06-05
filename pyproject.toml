@@ -22,7 +22,7 @@ click = "^8.2"
 pytest = "^7.3.1"
 pytest_click = "^1.1.0"
 commitizen = "^3.13.0"
-setuptools = ">=69.0.3,<71.0.0"  # Required for PyCharm.
+setuptools = ">=69.0.3,<79.0.0"  # Required for PyCharm.
 
 [tool.poetry.scripts]
 az-switch = "az_account_switcher.az_account_switcher:main"
