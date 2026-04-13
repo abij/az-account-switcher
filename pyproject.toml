@@ -19,7 +19,7 @@ python = ">=3.10"
 click = "^8.2"
 
 [tool.poetry.group.dev.dependencies]
-pytest = "^7.3.1"
+pytest = ">=7.3.1,<10.0.0"
 pytest_click = "^1.1.0"
 commitizen = "^3.13.0"
 setuptools = ">=69.0.3,<79.0.0"  # Required for PyCharm.
